@@ -6,8 +6,6 @@ import numpy as np
 import yfinance as yf
 import plotly.graph_objects as go
 import streamlit as st
-from pyngrok import ngrok
-import getpass
 import traceback
 import joblib
 from sklearn.preprocessing import MinMaxScaler
