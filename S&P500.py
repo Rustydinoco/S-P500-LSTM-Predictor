@@ -78,9 +78,15 @@ with tab2:
 
 with tab3:
   st.sidebar.header("Prediksi Harga")
-
+  st.subheader("Hasil Prediksi Model")
+  fig = go.Figure()
+  fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
+  fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
+  fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
+  st.plotly_chart(fig)
   
-  look_back = 60
+if st.sidebar.button("Prediksi Harga Selanjutnya"):
+   look_back = 60
   last_60_days = data["Close"].values[-look_back:]
   last_60_days_scaled = scaler.transform(last_60_days.reshape(-1,1))
   X_pred = torch.FloatTensor(last_60_days_scaled).unsqueeze(0)
@@ -96,12 +102,6 @@ with tab3:
           label=f"Prediksi Harga Tutup untuk {next_date.strftime('%Y-%m-%d')}",
           value=f"${prediction_actual[0][0]:,.2f}"
     )
-  st.subheader("Hasil Prediksi Model")
-  fig = go.Figure()
-  fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
-  fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
-  fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
-  st.plotly_chart(fig)
-
+  
                     
 st.sidebar.info("Disclaimer: Ini adalah proyek teknis, bukan saran finansial.")
