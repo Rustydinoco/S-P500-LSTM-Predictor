@@ -86,7 +86,7 @@ with tab3:
   st.plotly_chart(fig)
   
 if st.sidebar.button("Prediksi Harga Selanjutnya"):
-   look_back = 60
+  look_back = 60
   last_60_days = data["Close"].values[-look_back:]
   last_60_days_scaled = scaler.transform(last_60_days.reshape(-1,1))
   X_pred = torch.FloatTensor(last_60_days_scaled).unsqueeze(0)
