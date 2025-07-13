@@ -62,7 +62,7 @@ with st.spinner("Memuat Data dan Model......"):
 if model is None or scaler is None:
   st.stop()
   
-tab1,tab2,tab3 = st.tabs(["Data Historis","Grafik","Prediksi")
+tab1,tab2,tab3 = st.tabs(["Data Historis","Grafik","Prediksi"])
 
 with tab1:
   st.subheader("Historical Data S&P 500")
