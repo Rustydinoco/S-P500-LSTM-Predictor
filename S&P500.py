@@ -90,7 +90,7 @@ if model is not None:
             label=f"Prediksi Harga Tutup untuk {next_date.strftime('%Y-%m-%d')}",
             value=f"${prediction_actual[0][0]:,.2f}"
     )
-    
+    st.subheader(Hasil Prediksi Model)
     fig = go.Figure()
     fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
     fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
