@@ -75,15 +75,6 @@ with tab2:
     fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))
     fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
     st.plotly_chart(fig)
-
-with tab3:
-  st.sidebar.header("Prediksi Harga")
-  st.subheader("Hasil Prediksi Model")
-  fig = go.Figure()
-  fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
-  fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
-  fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
-  st.plotly_chart(fig)
   
 if st.sidebar.button("Prediksi Harga Selanjutnya"):
   look_back = 60
@@ -102,6 +93,14 @@ if st.sidebar.button("Prediksi Harga Selanjutnya"):
           label=f"Prediksi Harga Tutup untuk {next_date.strftime('%Y-%m-%d')}",
           value=f"${prediction_actual[0][0]:,.2f}"
     )
-  
+
+with tab3:
+  st.sidebar.header("Prediksi Harga")
+  st.subheader("Hasil Prediksi Model")
+  fig = go.Figure()
+  fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
+  fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
+  fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
+  st.plotly_chart(fig)
                     
 st.sidebar.info("Disclaimer: Ini adalah proyek teknis, bukan saran finansial.")
