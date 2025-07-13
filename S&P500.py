@@ -76,31 +76,32 @@ with tab2:
     fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
     st.plotly_chart(fig)
   
-if st.sidebar.button("Prediksi Harga Selanjutnya"):
-  look_back = 60
-  last_60_days = data["Close"].values[-look_back:]
-  last_60_days_scaled = scaler.transform(last_60_days.reshape(-1,1))
-  X_pred = torch.FloatTensor(last_60_days_scaled).unsqueeze(0)
-  with torch.no_grad():
-    prediction_scaled = model(X_pred)
 
-  prediction_actual = scaler.inverse_transform(prediction_scaled.numpy().reshape(-1,1))
-
-  last_date = data.index[-1]
-  next_date = last_date + pd.Timedelta(days= 1)
-
-  st.sidebar.metric(
-          label=f"Prediksi Harga Tutup untuk {next_date.strftime('%Y-%m-%d')}",
-          value=f"${prediction_actual[0][0]:,.2f}"
-    )
 
 with tab3:
-  st.sidebar.header("Prediksi Harga")
-  st.subheader("Hasil Prediksi Model")
-  fig = go.Figure()
-  fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
-  fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
-  fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
-  st.plotly_chart(fig)
+  if st.sidebar.button("Prediksi Harga Selanjutnya"):
+    look_back = 60
+    last_60_days = data["Close"].values[-look_back:]
+    last_60_days_scaled = scaler.transform(last_60_days.reshape(-1,1))
+    X_pred = torch.FloatTensor(last_60_days_scaled).unsqueeze(0)
+    with torch.no_grad():
+      prediction_scaled = model(X_pred)
+
+    prediction_actual = scaler.inverse_transform(prediction_scaled.numpy().reshape(-1,1))
+
+    last_date = data.index[-1]
+    next_date = last_date + pd.Timedelta(days= 1)
+
+    st.sidebar.metric(
+          label=f"Prediksi Harga Tutup untuk {next_date.strftime('%Y-%m-%d')}",
+          value=f"${prediction_actual[0][0]:,.2f}"
+      )
+    st.sidebar.header("Prediksi Harga")
+    st.subheader("Hasil Prediksi Model")
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
+    fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
+    fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
+    st.plotly_chart(fig)
                     
 st.sidebar.info("Disclaimer: Ini adalah proyek teknis, bukan saran finansial.")
