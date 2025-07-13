@@ -61,16 +61,22 @@ with st.spinner("Memuat Data dan Model......"):
 
 if model is None or scaler is None:
   st.stop()
+  
+tab1,tab2,tab3 = st.tabs("Data Historis","Grafik","Prediksi")
 
-if model is not None:
-  st.subheader("Close Price S&P 500")
-  fig = go.Figure()
-  fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))
-  fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
-  st.plotly_chart(fig)
+with tab1:
+  st.subheader("Historical Data S&P 500")
+  st.dataframe(data.tail(100))  
 
+with tab2:
+  if model is not None:
+    st.subheader("Close Price S&P 500")
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))
+    fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
+    st.plotly_chart(fig)
 
-
+with tab3:
   st.sidebar.header("Prediksi Harga")
 
   if st.sidebar.button("Prediksi Harga Selanjutnya"):
