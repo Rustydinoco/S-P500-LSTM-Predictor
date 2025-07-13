@@ -79,6 +79,7 @@ with tab2:
 
 
 with tab3:
+  st.subheader("Hasil Prediksi Model")
   if st.sidebar.button("Prediksi Harga Selanjutnya"):
     look_back = 60
     last_60_days = data["Close"].values[-look_back:]
@@ -97,7 +98,7 @@ with tab3:
           value=f"${prediction_actual[0][0]:,.2f}"
       )
     st.sidebar.header("Prediksi Harga")
-    st.subheader("Hasil Prediksi Model")
+    
     fig = go.Figure()
     fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
     fig.add_trace(go.Scatter(x= [next_date], y= [prediction_actual[0][0]], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
