@@ -94,7 +94,7 @@ with tab3:
     next_date = last_date + pd.Timedelta(days= 1)
 
     st.session_state.next_date = next_date
-    st.session_state.prediciton_actual = prediction_actual[0][0] 
+    st.session_state.prediciton_actual = prediction_actual
     
   if "next_date" in st.session_state and "prediction_actual" in st.session_state:
     st.sidebar.metric(
