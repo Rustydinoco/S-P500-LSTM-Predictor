@@ -94,7 +94,7 @@ with tab3:
     next_date = last_date + pd.Timedelta(days= 1)
 
     st.session_state.next_date = next_date
-    st.session_state.prediciton_actual = prediction_actual[0][0]
+    st.session_state.prediction_actual = prediction_actual[0][0]
     
   if "next_date" in st.session_state and "prediction_actual" in st.session_state:
     st.sidebar.metric(
@@ -105,7 +105,7 @@ with tab3:
     
     fig = go.Figure()
     fig.add_trace(go.Scatter(x= data.index, y= data["Close"], name= "S&P 500"))        
-    fig.add_trace(go.Scatter(x= [st.session_state.next_date], y= [st.session_state.prediciton_actual], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
+    fig.add_trace(go.Scatter(x= [st.session_state.next_date], y= [st.session_state.prediction_actual], name= "Hasil Prerdiksi",mode ="markers", marker = dict(color = "red", size = 10,symbol ="star")))
     fig.layout.update(title_text = "S&P 500 Price Movement", xaxis_rangeslider_visible = True)
     st.plotly_chart(fig)
                     
