@@ -98,8 +98,8 @@ with tab3:
     
   if "next_date" in st.session_state and "prediction_actual" in st.session_state:
     st.sidebar.metric(
-          label=f"Prediksi Harga Tutup untuk {next_date.strftime('%Y-%m-%d')}",
-          value=f"${prediction_actual[0][0]:,.2f}"
+          label=f"Prediksi Harga Tutup untuk { st.session_state.next_date.strftime('%Y-%m-%d')}",
+          value=f"${ st.session_state.prediction_actual[0][0]:,.2f}"
       )
     st.sidebar.header("Prediksi Harga")
     
