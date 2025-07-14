@@ -94,9 +94,9 @@ with tab3:
     next_date = last_date + pd.Timedelta(days= 1)
 
     st.session_state.next_date = next_date
-    st.session_state.prediciton_actual = prediction_actual
+    st.session_state.prediciton_actual = prediction_actual[0][0]
     
-  if next_date in st.session_state.next_date and prediction_actual in st.session_state.prediciton_actual:
+  if "next_date" in st.session_state and "prediction_actual" in st.session_state:
     st.sidebar.metric(
           label=f"Prediksi Harga Tutup untuk { st.session_state.next_date.strftime('%Y-%m-%d')}",
           value=f"${ st.session_state.prediction_actual:,.2f}"
